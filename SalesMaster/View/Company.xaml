@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="SalesMaster.View.Company"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:SalesMaster.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="830" d:DesignWidth="1520">
+
+    <UserControl.DataContext>
+        <vm:CompanyViewModel/>
+    </UserControl.DataContext>
+
+    <Grid>
+        <Image Grid.Column="0" Style="{StaticResource MainIcon}" Source="/Resources/Pictures/Company3.png" Margin="1120,100,100,430"/>
+        <Label Grid.Row="1" Style="{StaticResource HugeBoldText}" Margin="100,100,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Label.Content>
+                单位
+            </Label.Content>
+        </Label>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="120"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="80"/>
+            </Grid.RowDefinitions>
+        </Grid>
+    </Grid>
+
+</UserControl>

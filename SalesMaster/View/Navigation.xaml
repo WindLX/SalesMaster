@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="SalesMaster.View.Navigation"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:SalesMaster.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="900" d:DesignWidth="1600">
+
+    <UserControl.DataContext>
+        <vm:NavigationViewModel/>
+    </UserControl.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="80"/>
+            </Grid.RowDefinitions>
+            <Border Background="#8CA6D3" Grid.RowSpan="6"/>
+            <RadioButton Grid.Row="0" Style="{StaticResource NavigationButton}" Background="#5e89d5" ToolTip="主页" IsChecked="True" Command="{Binding OpenHomePage}">
+                <Image Style="{StaticResource NavigationIcon}" Source="/Resources/Pictures/Home2.png"/>
+            </RadioButton>
+            <RadioButton Grid.Row="1" Style="{StaticResource NavigationButton}" Background="#5e89d5" ToolTip="新建" Command="{Binding OpenNewPage}">
+                <Image Style="{StaticResource NavigationIcon}" Source="/Resources/Pictures/New2.png"/>
+            </RadioButton>
+            <RadioButton Grid.Row="2" Style="{StaticResource NavigationButton}" Background="#5e89d5" ToolTip="搜索" Command="{Binding OpenSearchPage}">
+                <Image Style="{StaticResource NavigationIcon}" Source="/Resources/Pictures/Search2.png"/>
+            </RadioButton>
+            <RadioButton Grid.Row="3" Style="{StaticResource NavigationButton}" Background="#5e89d5" ToolTip="单位" Command="{Binding OpenCompanyPage}">
+                <Image Style="{StaticResource NavigationIcon}" Source="/Resources/Pictures/Company2.png"/>
+            </RadioButton>
+            <RadioButton Grid.Row="5" Style="{StaticResource NavigationButton}" Background="#5e89d5" ToolTip="设置" Command="{Binding OpenSettingsPage}">
+                <Image Style="{StaticResource NavigationIcon}" Source="/Resources/Pictures/Settings2.png"/>
+            </RadioButton>
+        </Grid>
+        <ContentControl Grid.Column="1" Content="{Binding CurrentView}"/>
+    </Grid>
+</UserControl>

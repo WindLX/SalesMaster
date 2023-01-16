@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <FontFamily x:Key="XJL">/Resources/Fonts/#方正细金陵简体</FontFamily>
+    <FontFamily x:Key="CJL">/Resources/Fonts/#方正粗金陵简体</FontFamily>
+    <FontFamily x:Key="SYH">/Resources/Fonts/#思源黑体 Regular</FontFamily>
+    
+</ResourceDictionary>

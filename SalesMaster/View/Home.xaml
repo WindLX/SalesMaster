@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="SalesMaster.View.Home"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="830" d:DesignWidth="1520">
+
+    <Grid>
+        <Image Grid.Column="0" Style="{StaticResource MainIcon}" Source="/Resources/Pictures/Home3.png" Margin="0,100,100,0"/>
+        <Label Grid.Row="1" Style="{StaticResource HugeBoldText}" Margin="100,100,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Label.Content>
+                主页
+            </Label.Content>
+        </Label>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="1" Style="{StaticResource BigBoldText}">
+                <Label.Content>
+                    欢迎使用销货清单管理系统
+                </Label.Content>
+            </Label>
+            <Label Grid.Row="2" Style="{StaticResource MediumText}">
+                <Label.Content>
+                    点击左侧导航栏图标以快速开始
+                </Label.Content>
+            </Label>
+            <Label Grid.Row="3" Style="{StaticResource MediumText}">
+                <Label.Content>
+                    新建 创建新的清单
+                </Label.Content>
+            </Label>
+            <Label Grid.Row="4" Style="{StaticResource MediumText}">
+                <Label.Content>
+                    查询 查找已经创建的清单
+                </Label.Content>
+            </Label>
+            <Label Grid.Row="5" Style="{StaticResource MediumText}">
+                <Label.Content>
+                    单位 查看保存的单位信息
+                </Label.Content>
+            </Label>
+            <Label Grid.Row="6" Style="{StaticResource MediumText}">
+                <Label.Content>
+                    设置 进行偏好设置
+                </Label.Content>
+            </Label>
+        </Grid>
+    </Grid>
+    
+</UserControl>

@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="SalesMaster.View.State"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:SalesMaster.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="1600">
+
+    <UserControl.DataContext>
+        <vm:StateViewModel/>
+    </UserControl.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+        <Border Background="#3178c6" Grid.ColumnSpan="5"/>
+        <Label Grid.Column="0" Style="{StaticResource StateText}" Content="{Binding CurrentPage}"/>
+        <Label Grid.Column="1" Style="{StaticResource StateText}" Content="{Binding CurrentState}"/>
+        <Label Grid.Column="3" Style="{StaticResource StateText}">
+            <Label.Content>行数</Label.Content>
+        </Label>
+        <Label Grid.Column="4" Style="{StaticResource StateText}">
+            <Label.Content>时间</Label.Content>
+        </Label>
+    </Grid>
+    
+</UserControl>
