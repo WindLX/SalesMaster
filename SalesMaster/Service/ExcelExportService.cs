@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SalesMaster.Model;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SalesMaster.Model;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
-using System.Diagnostics;
 
 namespace SalesMaster.Service
 {
@@ -17,12 +11,15 @@ namespace SalesMaster.Service
 
         private string CopyTemplate(string fileName, string path)
         {
-            if (!Directory.Exists(path))
-                Directory.CreateDirectory(path);
             string targetPath = Path.Combine(path, $"{fileName}.xlsx");
             FileInfo file = new FileInfo(sourcePath);
+
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
             if (file.Exists)
                 file.CopyTo(targetPath, true);
+
             return targetPath;
         }
 

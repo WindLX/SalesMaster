@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="SalesMaster.View.New"
+﻿<UserControl x:Class="SalesMaster.View.EditMain"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,27 +7,73 @@
              mc:Ignorable="d" 
              d:DesignHeight="830" d:DesignWidth="1520">
 
-    <UserControl.DataContext>
-        <vm:NewViewModel/>
-    </UserControl.DataContext>
-
     <Grid>
-        <Image Grid.Column="0" Style="{StaticResource MainIcon}" Source="/Resources/Pictures/New3.png" Margin="1120,100,100,430"/>
-        <Label Grid.Row="1" Style="{StaticResource HugeBoldText}" Margin="100,100,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <Label.Content>
-                新建
-            </Label.Content>
-        </Label>
+        <Button Grid.Column="0"
+                Height="60"
+                Width="60"
+                Margin="50,30,0,0"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                Background="#b5ab45"
+                Style="{StaticResource DataButton}"
+                Command="{Binding Return}"
+                ToolTip="返回" Cursor="Hand">
+            <Image Source="/Resources/Pictures/Return.png"
+                   Width="40"
+                   Height="40"
+                   Style="{StaticResource TopIcon}" Cursor=""/>
+        </Button>
+        <Button Grid.Column="0"
+                Height="60"
+                Width="60"
+                Margin="0,30,50,0"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Right"
+                Background="#f03636"
+                Style="{StaticResource DataButton}"
+                Command="{Binding Delete}"
+                ToolTip="删除"
+                IsEnabled="{Binding IsEditing}">
+            <Image Source="/Resources/Pictures/Close2.png"
+                   Width="40"
+                   Height="40"
+                   Style="{StaticResource TopIcon}" Cursor=""/>
+        </Button>
         <Button Grid.Column="0"
                 Height="60"
                 Width="200"
                 Background="#3da345"
                 Style="{StaticResource NormalButton}"
+                Command="{Binding Export}"
+                Content="导出"
+                IsEnabled="{Binding CanEditing}"
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Bottom" 
+                Margin="0,0,100,200">
+        </Button>
+        <Button Grid.Column="0"
+                Height="60"
+                Width="200"
+                Background="#5e89d5"
+                Style="{StaticResource NormalButton}"
                 Command="{Binding Confirm}"
                 Content="保存"
                 HorizontalAlignment="Right" 
                 VerticalAlignment="Bottom" 
-                Margin="0,0,100,100">
+                Margin="0,0,100,100"
+                IsEnabled="{Binding IsEditing}">
+        </Button>
+        <Button Grid.Column="0"
+                Height="60"
+                Width="200"
+                Background="#3da345"
+                Style="{StaticResource NormalButton}"
+                Command="{Binding Edit}"
+                Content="编辑"
+                IsEnabled="{Binding CanEditing}"
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Bottom" 
+                Margin="100,0,0,100" Cursor="Hand">
         </Button>
         <Grid>
             <Grid.RowDefinitions>
@@ -60,6 +106,7 @@
                     </Border>
                     <Border Background="#dbe0e9"
                             Opacity="0.6"
+                            Grid.ColumnSpan="2"
                             Grid.Row="2">
                     </Border>
                     <Grid Grid.Row="0">
@@ -80,6 +127,7 @@
                              Text="{Binding Consignee}"
                              Name="CompanyNameTextBox"
                              ItemsSource="{Binding Companies}"
+                             IsEnabled="{Binding IsEditing}"
                              Style="{StaticResource BetterComboBox}">
                         </ComboBox>
                         <Label Grid.Column="3"
@@ -100,6 +148,7 @@
                             HorizontalAlignment="Center"
                             Background="#5e89d5"
                             Style="{StaticResource DataButton}"
+                             IsEnabled="{Binding IsEditing}"
                             Command="{Binding OpenTime}">
                             <Image Source="/Resources/Pictures/Time.png"
                                Width="30"
@@ -192,12 +241,14 @@
                                                          Width="200"
                                                          Name="CompanyTextBox"
                                                          Style="{StaticResource BetterTextBox}"
+                                                        IsEnabled="{Binding IsEditing}"
                                                          Text="{Binding CommodityName}"/>
                                                 <TextBox Grid.Column="2" 
                                                          Height="40"
                                                          Width="60"
                                                          HorizontalAlignment="Center"
                                                          Style="{StaticResource BetterTextBox}"
+                                                        IsEnabled="{Binding IsEditing}"
                                                          Text="{Binding Unit}"/>
                                                 <TextBox Grid.Column="3" 
                                                          Height="40"
@@ -205,6 +256,7 @@
                                                          HorizontalAlignment="Center"
                                                          Style="{StaticResource BetterTextBox}"
                                                          Text="{Binding Quantity}"
+                                                        IsEnabled="{Binding IsEditing}"
                                                          PreviewTextInput="TextBox_PreviewTextInput"/>
                                                 <TextBox Grid.Column="4" 
                                                          Height="40"
@@ -212,6 +264,7 @@
                                                          HorizontalAlignment="Center"
                                                          Style="{StaticResource BetterTextBox}"
                                                          Text="{Binding UnitPrice}"
+                                                        IsEnabled="{Binding IsEditing}"
                                                          PreviewTextInput="TextBox_PreviewTextInput2"/>
                                                 <Label Grid.Column="5" 
                                                          Height="40"
@@ -224,6 +277,7 @@
                                                         Width="40"
                                                         Background="#DA5959"
                                                         Style="{StaticResource DataButton}"
+                                                        IsEnabled="{Binding IsEditing}"
                                                         Command="{Binding Delete}"
                                                         CommandParameter="{Binding ElementName=SaleID, Path=Content}">
                                                     <Image Source="/Resources/Pictures/Close2.png"
@@ -269,7 +323,8 @@
                             HorizontalAlignment="Center"
                             Background="#3da345"
                             Style="{StaticResource DataButton}"
-                            Command="{Binding Add}">
+                            Command="{Binding Add}"
+                            IsEnabled="{Binding IsEditing}">
                             <Image Source="/Resources/Pictures/Add.png"
                                Style="{StaticResource TopIcon}"/>
                         </Button>
@@ -290,5 +345,4 @@
                   DisplayMode="Month"/>
         </Viewbox>
     </Grid>
-
 </UserControl>

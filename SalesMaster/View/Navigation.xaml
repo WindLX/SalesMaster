@@ -26,22 +26,54 @@
                 <RowDefinition Height="80"/>
             </Grid.RowDefinitions>
             <Border Background="#8CA6D3" Grid.RowSpan="6"/>
-            <RadioButton Grid.Row="0" Style="{StaticResource NavigationButton}" Background="#5e89d5" ToolTip="主页" IsChecked="True" Command="{Binding OpenHomePage}">
-                <Image Style="{StaticResource NavigationIcon}" Source="/Resources/Pictures/Home2.png"/>
+            <RadioButton Grid.Row="0" 
+                         Style="{StaticResource NavigationButton}" 
+                         Background="#5e89d5" 
+                         ToolTip="主页" 
+                         IsChecked="True" 
+                         IsEnabled="{Binding CanChangePage}"
+                         Command="{Binding OpenHomePage}">
+                <Image Style="{StaticResource NavigationIcon}" 
+                       Source="/Resources/Pictures/Home2.png"/>
             </RadioButton>
-            <RadioButton Grid.Row="1" Style="{StaticResource NavigationButton}" Background="#5e89d5" ToolTip="新建" Command="{Binding OpenNewPage}">
-                <Image Style="{StaticResource NavigationIcon}" Source="/Resources/Pictures/New2.png"/>
+            <RadioButton Grid.Row="1" 
+                         Style="{StaticResource NavigationButton}" 
+                         Background="#5e89d5" 
+                         ToolTip="新建" 
+                         IsEnabled="{Binding CanChangePage}"
+                         Command="{Binding OpenNewPage}">
+                <Image Style="{StaticResource NavigationIcon}" 
+                       Source="/Resources/Pictures/New2.png"/>
             </RadioButton>
-            <RadioButton Grid.Row="2" Style="{StaticResource NavigationButton}" Background="#5e89d5" ToolTip="搜索" Command="{Binding OpenSearchPage}">
-                <Image Style="{StaticResource NavigationIcon}" Source="/Resources/Pictures/Search2.png"/>
+            <RadioButton Grid.Row="2" 
+                         Style="{StaticResource NavigationButton}" 
+                         Background="#5e89d5" 
+                         ToolTip="搜索" 
+                         IsEnabled="{Binding CanChangePage}"
+                         Command="{Binding OpenSearchPage}">
+                <Image Style="{StaticResource NavigationIcon}" 
+                       Source="/Resources/Pictures/Search2.png"/>
             </RadioButton>
-            <RadioButton Grid.Row="3" Style="{StaticResource NavigationButton}" Background="#5e89d5" ToolTip="单位" Command="{Binding OpenCompanyPage}">
-                <Image Style="{StaticResource NavigationIcon}" Source="/Resources/Pictures/Company2.png"/>
+            <RadioButton Grid.Row="3"
+                         Style="{StaticResource NavigationButton}"
+                         Background="#5e89d5"
+                         ToolTip="单位"
+                         IsEnabled="{Binding CanChangePage}"
+                         Command="{Binding OpenCompanyPage}">
+                <Image Style="{StaticResource NavigationIcon}" 
+                       Source="/Resources/Pictures/Company2.png"/>
             </RadioButton>
-            <RadioButton Grid.Row="5" Style="{StaticResource NavigationButton}" Background="#5e89d5" ToolTip="设置" Command="{Binding OpenSettingsPage}">
-                <Image Style="{StaticResource NavigationIcon}" Source="/Resources/Pictures/Settings2.png"/>
+            <RadioButton Grid.Row="5" 
+                         Style="{StaticResource NavigationButton}" 
+                         Background="#5e89d5" 
+                         ToolTip="设置" 
+                         IsEnabled="{Binding CanChangePage}"
+                         Command="{Binding OpenSettingsPage}">
+                <Image Style="{StaticResource NavigationIcon}" 
+                       Source="/Resources/Pictures/Settings2.png"/>
             </RadioButton>
         </Grid>
-        <ContentControl Grid.Column="1" Content="{Binding CurrentView}"/>
+        <ContentControl Grid.Column="1" 
+                        Content="{Binding CurrentView}"/>
     </Grid>
 </UserControl>

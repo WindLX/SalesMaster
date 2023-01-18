@@ -4,12 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:v="clr-namespace:SalesMaster.View"
+        xmlns:vm="clr-namespace:SalesMaster.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="900" Width="1600"
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True" WindowStyle="None"
         Icon="/Resources/Icon/Icon.ico">
 
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+    
     <WindowChrome.WindowChrome>
         <WindowChrome
             ResizeBorderThickness="8"
@@ -26,13 +31,13 @@
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <v:Top/>
+            <ContentControl Content="{Binding TopView}"/>
         </Grid>
         <Grid Grid.Row="1">
-            <v:Navigation/>
+            <ContentControl Content="{Binding NavigationView}"/>
         </Grid>
         <Grid Grid.Row="2">
-            <v:State/>
+            <ContentControl Content="{Binding StateView}"/>
         </Grid>
     </Grid>
     

@@ -1,0 +1,253 @@
+﻿<UserControl x:Class="SalesMaster.View.SearchMain"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:SalesMaster.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="830" d:DesignWidth="1520">
+
+    <UserControl.DataContext>
+        <vm:SearchMainViewModel/>
+    </UserControl.DataContext>
+    
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="150"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="360"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="170"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="170"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Style="{StaticResource MediumBoldText}"
+                       Content="收货单位" 
+                       Height="36" 
+                       Width="106"
+                       Grid.Column="1"/>
+                <ComboBox Grid.Column="2"
+                          Text="{Binding Consignee}"
+                          Name="CompanyNameTextBox"
+                          ItemsSource="{Binding Companies}"
+                          Style="{StaticResource BetterComboBox}" 
+                          Margin="22,25,22,25"/>
+                <Label Grid.Column="3"
+                               Style="{StaticResource MediumBoldText}"
+                               Content="开始日期"/>
+                <Label Grid.Column="4"
+                             Height="50"
+                             Width="170"
+                             Content="{Binding StartTime}"
+                             VerticalContentAlignment="Center"
+                             Style="{StaticResource MediumText}">
+                </Label>
+                <Button Grid.Column="5"
+                        Height="40"
+                        Width="40"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Background="#5e89d5"
+                        Style="{StaticResource DataButton}"
+                        Command="{Binding OpenStartTime}"
+                        CommandParameter="1">
+                    <Image Source="/Resources/Pictures/Time.png"
+                            Width="30"
+                            Height="30"
+                            Style="{StaticResource TopIcon}"/>
+                </Button>
+                <Label Grid.Column="6"
+                        Style="{StaticResource MediumBoldText}"
+                        Content="截止日期"/>
+                <Label Grid.Column="7"
+                        Height="50"
+                        Width="170"
+                        Content="{Binding EndTime}"
+                        VerticalContentAlignment="Center"
+                        Style="{StaticResource MediumText}">
+                </Label>
+                <Button Grid.Column="8"
+                        Height="40"
+                        Width="40"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Background="#5e89d5"
+                        Style="{StaticResource DataButton}"
+                        Command="{Binding OpenEndTime}"
+                        CommandParameter="2">
+                    <Image Source="/Resources/Pictures/Time.png"
+                               Width="30"
+                               Height="30"
+                               Style="{StaticResource TopIcon}"/>
+                </Button>
+                <Button Grid.Column="9"
+                            Height="60"
+                            Width="60"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Background="#3da345"
+                            Style="{StaticResource DataButton}"
+                            Command="{Binding Search}"
+                        ToolTip="开始搜索">
+                    <Image Source="/Resources/Pictures/Search2.png"
+                           Width="40"
+                           Height="40"
+                           Style="{StaticResource TopIcon}"/>
+                </Button>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="1"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1"/>
+                    <ColumnDefinition Width="0.7*"/>
+                    <ColumnDefinition Width="18"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Border Background="#3179c6"
+                            Opacity="0.6"
+                            Grid.ColumnSpan="10"
+                            Grid.Column="1">
+                </Border>
+                <Label Grid.Column="1"
+                               Foreground="#FEFEFE"
+                               Style="{StaticResource MediumBoldText}"
+                               Content="索引"/>
+                <Rectangle Grid.Column="2"
+                                   Fill="#3178c6"/>
+                <Label Grid.Column="3"
+                               Foreground="#FEFEFE"
+                               Style="{StaticResource MediumBoldText}"
+                               Content="销货清单名称"/>
+                <Rectangle Grid.Column="4"
+                                   Fill="#3178c6"/>
+                <Label Grid.Column="5"
+                               Foreground="#FEFEFE"
+                               Style="{StaticResource MediumBoldText}"
+                               Content="收货单位"/>
+                <Rectangle Grid.Column="6"
+                                   Fill="#3178c6"/>
+                <Label Grid.Column="7"
+                               Foreground="#FEFEFE"
+                               Style="{StaticResource MediumBoldText}"
+                               Content="日期"/>
+                <Rectangle Grid.Column="8"
+                                   Fill="#3178c6"/>
+                <Grid Grid.Row="1"/>
+            </Grid>
+            <StackPanel Grid.Row="3">
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                      MaxHeight="600">
+                    <StackPanel>
+                        <ItemsControl ItemsSource="{Binding SalesLists}"
+                                              FontSize="40">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="1"/>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="1"/>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="1"/>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="1"/>
+                                            <ColumnDefinition Width="0.7*"/>
+                                            <ColumnDefinition Width="18"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Background="#dbe0e9"
+                                                Opacity="0.6"
+                                                Grid.ColumnSpan="10"
+                                                Grid.Column="1">
+                                        </Border>
+                                        <Label Grid.Column="1"
+                                                       Style="{StaticResource MediumText}"
+                                                       Height="40"
+                                                       Name="SaleID"
+                                                       Content="{Binding Index}"/>
+                                        <Label Grid.Column="3" 
+                                                         Height="40"
+                                                         Width="200"
+                                                         Name="CompanyTextBox"
+                                                         Style="{StaticResource MediumText}"
+                                                         Content="{Binding Name}"/>
+                                        <Label Grid.Column="5" 
+                                                         Height="40"
+                                                         Width="200"
+                                                         HorizontalAlignment="Center"
+                                               HorizontalContentAlignment="Center"
+                                                         Style="{StaticResource MediumText}"
+                                                         Content="{Binding Company}"/>
+                                        <Label Grid.Column="7" 
+                                                         Height="40"
+                                                         Width="200"
+                                                         HorizontalAlignment="Center"
+                                               HorizontalContentAlignment="Center"
+                                                         Style="{StaticResource MediumText}"
+                                                         Content="{Binding SaleDate}"/>
+                                        <Button Grid.Column="9"
+                                                        Height="40"
+                                                        Width="40"
+                                                        Background="#b5ab45"
+                                                        Style="{StaticResource DataButton}"
+                                                        Command="{Binding Open}"
+                                                CommandParameter="{Binding TimeID}">
+                                            <Image Source="/Resources/Pictures/Go.png"
+                                                           Style="{StaticResource TopIcon}"/>
+                                        </Button>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </ScrollViewer>
+            </StackPanel>
+        </Grid>
+        <Viewbox Width="300"
+                 HorizontalAlignment="Right" 
+                 VerticalAlignment="Top" 
+                 Margin="0,520,40,0"
+                 Opacity="0.9"
+                 Visibility="{Binding IsShow2}">
+            <Calendar 
+                  IsTodayHighlighted="True"
+                  SelectionMode="SingleDate"
+                  SelectedDate="{Binding RawEndTime}"
+                  DisplayMode="Month"/>
+        </Viewbox>
+        <Viewbox Width="300"
+                 HorizontalAlignment="Right" 
+                 VerticalAlignment="Top" 
+                 Margin="0,230,40,0"
+                 Opacity="0.9"
+                 Visibility="{Binding IsShow1}">
+            <Calendar 
+                  IsTodayHighlighted="True"
+                  SelectionMode="SingleDate"
+                  SelectedDate="{Binding RawStartTime}"
+                  DisplayMode="Month"/>
+        </Viewbox>
+    </Grid>
+</UserControl>

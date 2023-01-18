@@ -3,6 +3,18 @@
                     xmlns:vm="clr-namespace:SalesMaster.ViewModel"
                     xmlns:v="clr-namespace:SalesMaster.View">
 
+    <DataTemplate DataType="{x:Type vm:TopViewModel}">
+        <v:Top/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:NavigationViewModel}">
+        <v:Navigation/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:StateViewModel}">
+        <v:State/>
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type vm:HomeViewModel}">
         <v:Home/>
     </DataTemplate>
@@ -22,5 +34,13 @@
     <DataTemplate DataType="{x:Type vm:SettingsViewModel}">
         <v:Settings/>
     </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:SearchMainViewModel}">
+        <v:SearchMain/>
+    </DataTemplate>
+
+    <!--<DataTemplate DataType="{x:Type vm:EditMainViewModel}">
+        <v:EditMain/>
+    </DataTemplate>-->
 
 </ResourceDictionary>

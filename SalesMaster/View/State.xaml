@@ -13,20 +13,43 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="80"/>
-            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="40"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="80"/>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="160"/>
         </Grid.ColumnDefinitions>
-        <Border Background="#3178c6" Grid.ColumnSpan="5"/>
-        <Label Grid.Column="0" Style="{StaticResource StateText}" Content="{Binding CurrentPage}"/>
-        <Label Grid.Column="1" Style="{StaticResource StateText}" Content="{Binding CurrentState}"/>
-        <Label Grid.Column="3" Style="{StaticResource StateText}">
-            <Label.Content>行数</Label.Content>
+        <Border Background="{Binding BackgroundColor}" 
+                Grid.ColumnSpan="9"/>
+        <Image Grid.Column="0" 
+               Style="{StaticResource StateIcon}" 
+               Source="/Resources/Pictures/Page.png"/>
+        <Label Grid.Column="1" 
+               Style="{StaticResource StateText}" 
+               Content="{Binding CurrentPage}"/>
+        <Image Grid.Column="2" 
+               Style="{StaticResource StateIcon}" 
+               Source="/Resources/Pictures/Modern.png"/>
+        <Label Grid.Column="3" 
+               Style="{StaticResource StateText}" 
+               Content="{Binding CurrentState}"/>
+        <Image Grid.Column="5" 
+               Style="{StaticResource StateIcon}" 
+               Source="/Resources/Pictures/Pen.png"/>
+        <Label Grid.Column="6" 
+               Style="{StaticResource StateText}"
+               Content="{Binding LineNumber}">
         </Label>
-        <Label Grid.Column="4" Style="{StaticResource StateText}">
-            <Label.Content>时间</Label.Content>
+        <Image Grid.Column="7" 
+               Style="{StaticResource StateIcon}" 
+               Source="/Resources/Pictures/Name.png"/>
+        <Label Grid.Column="8" 
+               Style="{StaticResource StateText}"
+               Content="{Binding ChosenSalesList}">
         </Label>
     </Grid>
     

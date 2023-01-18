@@ -95,7 +95,7 @@
 
         <Setter Property="FontFamily" Value="{StaticResource SYH}"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="Foreground" Value="#FFFFFF"/>
         <Setter Property="FontSize" Value="14"/>
 
@@ -117,8 +117,7 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="Foreground" Value="#111111"/>
-        <Setter Property="FontSize" Value="28"/>
-        <Setter Property="Margin" Value="150,0,20,0"/>
+        <Setter Property="FontSize" Value="20"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Label">

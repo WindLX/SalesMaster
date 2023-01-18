@@ -1,18 +1,18 @@
 ﻿using SalesMaster.Utils;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace SalesMaster.ViewModel
 {
     public class StateViewModel : ViewModelBase
     {
+        public event Action<object, string> OnCanPageChange;
+
         private PageName currentPage;
         private StateName currentState;
-        private Color stateColor;
+        private string lineNumber = "0 行";
+        private string chosenSalesList = "未选中清单";
+        private SolidColorBrush backgroundColor;
 
         public string CurrentPage 
         {
@@ -30,13 +30,69 @@ namespace SalesMaster.ViewModel
             set
             {
                 currentState = ConvertStringToStateName(value);
+                switch (ConvertStringToStateName(value))
+                {
+                    case StateName.View:
+                        OnCanPageChange?.Invoke(true, "CanPageChange");
+                        BackgroundColor = new SolidColorBrush(Color.FromRgb(0x31, 0x78, 0xc6));
+                        break;
+                    case StateName.Edit:
+                        OnCanPageChange?.Invoke(false, "CanPageChange");
+                        BackgroundColor = new SolidColorBrush(Color.FromRgb(0x09, 0x7e, 0x13));
+                        break;
+                    case StateName.Changed:
+                        OnCanPageChange?.Invoke(false, "CanPageChange");
+                        BackgroundColor = new SolidColorBrush(Color.FromRgb(0xb5, 0xab, 0x45));
+                        break;
+                    default:
+                        OnCanPageChange?.Invoke(true, "CanPageChange");
+                        BackgroundColor = new SolidColorBrush(Color.FromRgb(0x31, 0x78, 0xc6));
+                        break;
+                }
+                OnPropertyChanged();
+            }
+        }
+
+        public string LineNumber
+        {
+            get => lineNumber;
+            set
+            {
+                lineNumber = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string ChosenSalesList 
+        {
+            get => chosenSalesList;
+            set
+            {
+                chosenSalesList = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public SolidColorBrush BackgroundColor
+        {
+            get => backgroundColor;
+            set
+            {
+                backgroundColor = value;
                 OnPropertyChanged();
             }
         }
 
         public StateViewModel()
         {
-            NavigationViewModel.Instace.OnCurrentViewChanged += ChangePageName;
+            OnCanPageChange += Broadcaster.Instace.Publish;
+            Broadcaster.Instace.Subscribe(ChangePageName, "CurrentViewChanged");
+            Broadcaster.Instace.Subscribe(ChangeStateName, "ChangeState");
+            Broadcaster.Instace.Subscribe(ChangeLineNumber, "ChangeLineNumber");
+            Broadcaster.Instace.Subscribe(ChangeChosenSalesList, "ChangeChosenSalesList");
+
+            BackgroundColor = new SolidColorBrush(Color.FromRgb(0x31, 0x78, 0xc6));
+            CurrentState = "视图";
         }
 
         private PageName ConvertStringToPageName(string pageName)
@@ -73,7 +129,7 @@ namespace SalesMaster.ViewModel
                 case PageName.Settings:
                     return "设置";
                 default:
-                    return "？？？";
+                    throw new InvalidCastException("系统页面错误！");
             }
         }
 
@@ -88,7 +144,7 @@ namespace SalesMaster.ViewModel
                 case "更改":
                     return StateName.Changed;
                 default:
-                    return StateName.View;
+                    throw new InvalidCastException("系统状态错误！");
             }
         }
 
@@ -107,23 +163,9 @@ namespace SalesMaster.ViewModel
             }
         }
 
-        private Color ConvertColor(StateName stateName)
-        {
-            switch (stateName)
-            {
-                case StateName.View:
-                    return new Color();
-                case StateName.Edit:
-                    return new Color();
-                case StateName.Changed:
-                    return new Color();
-                default:
-                    return new Color();
-            }
-        }
-
-        public void ChangePageName(PageName pageName) => CurrentPage = ConvertPageNameToString(pageName);
-
-        public void ChnageStateName(StateName stateName) => CurrentState = ConvertStateNameToString(stateName);
+        public void ChangePageName(object pageName) => CurrentPage = ConvertPageNameToString((PageName)pageName);
+        public void ChangeStateName(object stateName) => CurrentState = ConvertStateNameToString((StateName)stateName);
+        public void ChangeLineNumber(object lineNumber) => LineNumber = $"{lineNumber} 行";
+        public void ChangeChosenSalesList(object salesListName) => ChosenSalesList = (string)salesListName;
     }
 }

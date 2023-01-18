@@ -15,4 +15,11 @@
         Edit,
         Changed
     }
+
+    public enum EditModern
+    {
+        None,
+        Add,
+        Edit
+    }
 }

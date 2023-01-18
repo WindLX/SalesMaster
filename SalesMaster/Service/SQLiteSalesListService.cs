@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Runtime.CompilerServices;
 using System.Data;
 using System.Windows.Controls;
+using System.Globalization;
 
 namespace SalesMaster.Service
 {
@@ -154,15 +155,28 @@ namespace SalesMaster.Service
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                Sale sale = new Sale(Convert.ToInt32(reader["ID"]));
-                sale.CommodityName = reader["CommodityName"].ToString();
-                sale.Quantity = Convert.ToInt32(reader["Quantity"]);
-                sale.Unit = reader["Unit"].ToString();
-                var i = reader["UnitPrice"];
-                sale.UnitPrice = (float)(double)reader["UnitPrice"];
+                Sale sale = new Sale(Convert.ToInt32(reader["ID"]))
+                {
+                    CommodityName = reader["CommodityName"].ToString(),
+                    Quantity = Convert.ToInt32(reader["Quantity"]),
+                    Unit = reader["Unit"].ToString(),
+                    UnitPrice = (float)(double)reader["UnitPrice"]
+                };
                 salesList.Add(sale);
             }
             DisconnectDB();
+
+            ConnectDB();
+            string sql2 = $"SELECT * FROM [SalesListInfo] WHERE [TimeID] = '{targetTimeID}'";
+            SQLiteCommand cmd2 = new SQLiteCommand(sql2, connection);
+            SQLiteDataReader reader2 = cmd2.ExecuteReader();
+            while (reader2.Read())
+            {
+                salesList.Consignee = reader2["Consignee"].ToString();
+                salesList.SaleTime = DateTime.ParseExact(reader2["SaleTime"].ToString(), "G", CultureInfo.CurrentCulture);
+            }
+            DisconnectDB();
+
             return salesList;
         }
     }

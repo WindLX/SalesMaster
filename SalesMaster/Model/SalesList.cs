@@ -1,8 +1,8 @@
-﻿using System;
+﻿using SalesMaster.Utils;
+using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Navigation;
 
 namespace SalesMaster.Model
 {
@@ -10,11 +10,13 @@ namespace SalesMaster.Model
     {
         private string timeID;
         private List<Sale> sales;
+
         public string TimeID { get => timeID; }
         public bool IsLock { get; set; }
         public string Consignee { get; set; }
         public DateTime SaleTime { get; set; }
         public int Count { get => sales.Count; }
+
         public float SumPrice
         { 
             get
@@ -68,30 +70,141 @@ namespace SalesMaster.Model
                 sales.RemoveAll(n => n.ID == sale.ID);
         }
 
-        public void Change(Sale targetSale, Sale newSale)
+        public void ResetID()
         {
-            if (IsLock)
-                return;
-            else
-                sales = sales.Select(n => n == targetSale ? newSale : n).ToList();
+            for (int i = 0; i < Count; i++)
+                sales[i].ID = i;
         }
+
+        //public void Change(Sale targetSale, Sale newSale)
+        //{
+        //    if (IsLock)
+        //        return;
+        //    else
+        //        sales = sales.Select(n => n == targetSale ? newSale : n).ToList();
+        //}
+
+        //public void Clear()
+        //{
+        //    if (IsLock)
+        //        return;
+        //    else
+        //    {
+        //        sales.Clear();
+        //        IsLock = false;
+        //        SaleTime = default;
+        //        Consignee = "";
+        //    }
+        //}
     }
 
-    public class Sale
+    public class Sale : ViewModelBase
     {
-        private int id;
-        public int ID { get => id; }
-        public string CommodityName { get; set; }
-        public string Unit { get; set; }
-        public int Quantity { get; set; }
-        public float UnitPrice { get; set; }
-        public float TotalPrice { get => Quantity * UnitPrice; }
+        public event Action<object, string> OnDelete;
+        public event Action<object, string> OnSumPriceUpdate;
 
-        public Sale() { }
+        private bool isEditing;
+        private int id;
+        private string commodityName;
+        private string unit;
+        private int quantity;
+        private float unitPrice;
+
+        public RelayCommand Delete { get; set; }
+
+        public bool IsEditing 
+        {
+            get => isEditing;
+            set 
+            {
+                isEditing = value;
+                OnPropertyChanged(); 
+            }
+        }
+
+        public int ID
+        {
+            get => id;
+            set
+            {
+                id = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string CommodityName 
+        {
+            get => commodityName;
+            set
+            {
+                commodityName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Unit 
+        {
+            get => unit;
+            set
+            {
+                unit = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int Quantity 
+        {
+            get => quantity;
+            set
+            {
+                quantity = value;
+                OnPropertyChanged();
+                TotalPrice = 1;
+                OnSumPriceUpdate?.Invoke(null, "SumPriceUpdate");
+            }
+        }
+
+        public float UnitPrice
+        {
+            get => unitPrice;
+            set
+            {
+                unitPrice = value;
+                OnPropertyChanged();
+                TotalPrice = 1;
+                OnSumPriceUpdate?.Invoke(null, "SumPriceUpdate");
+            }
+        }
+
+        public float TotalPrice 
+        {
+            get => Quantity * UnitPrice;
+            set
+            {
+                OnPropertyChanged();
+            }
+        }
+
+        public Sale() 
+        {
+            OnDelete += Broadcaster.Instace.Publish;
+            OnSumPriceUpdate += Broadcaster.Instace.Publish;
+
+            Broadcaster.Instace.Subscribe(new Action<object>((parameter) => IsEditing = (bool)parameter), "IsEditing");
+
+            Delete = new RelayCommand(new Action<object>((parameter) => OnDelete?.Invoke(ID, "NewDeleteSale")));
+        }
 
         public Sale(int id)
         {
             this.id = id;
+
+            OnDelete += Broadcaster.Instace.Publish;
+            OnSumPriceUpdate += Broadcaster.Instace.Publish;
+
+            Broadcaster.Instace.Subscribe(new Action<object>((parameter) => IsEditing = (bool)parameter), "IsEditing");
+
+            Delete = new RelayCommand(new Action<object>((parameter) => OnDelete?.Invoke(ID, "NewDeleteSale")));
         }
     }
 }

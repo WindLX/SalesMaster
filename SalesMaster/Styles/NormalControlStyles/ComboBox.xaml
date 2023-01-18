@@ -1,11 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Style x:Key="BetterTextBox" TargetType="TextBox">
+    <Style TargetType="ComboBox" x:Key="BetterComboBox">
 
+        <Setter Property="IsEditable" Value="True"/>
+        <Setter Property="IsTextSearchEnabled" Value="True"/>
         <Setter Property="FontFamily" Value="{StaticResource XJL}"/>
         <Setter Property="FontSize" Value="24"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
 
     </Style>

@@ -12,8 +12,15 @@
     </UserControl.DataContext>
 
     <Grid>
-        <Image Grid.Column="0" Style="{StaticResource MainIcon}" Source="/Resources/Pictures/Company3.png" Margin="1120,100,100,430"/>
-        <Label Grid.Row="1" Style="{StaticResource HugeBoldText}" Margin="100,100,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Image Grid.Column="0" 
+               Style="{StaticResource MainIcon}"
+               Source="/Resources/Pictures/Company3.png" 
+               Margin="1120,100,100,430"/>
+        <Label Grid.Row="1" 
+               Style="{StaticResource HugeBoldText}"
+               Margin="100,100,0,0" 
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top">
             <Label.Content>
                 单位
             </Label.Content>
@@ -22,12 +29,156 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="100"/>
-                <RowDefinition Height="100"/>
-                <RowDefinition Height="100"/>
-                <RowDefinition Height="120"/>
-                <RowDefinition Height="100"/>
-                <RowDefinition Height="80"/>
+                <RowDefinition Height="700"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="Auto"
+                                       MaxHeight="700"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Background="#3179c6"
+                            Opacity="0.6"
+                            Grid.ColumnSpan="2"
+                            Grid.Row="0">
+                    </Border>
+                    <Border Background="#dbe0e9"
+                            Opacity="0.6"
+                            Grid.Row="1">
+                    </Border>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="1"/>
+                            <ColumnDefinition Width="8*"/>
+                            <ColumnDefinition Width="1"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="18"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                               Foreground="#FEFEFE"
+                               Style="{StaticResource MediumBoldText}"
+                               Content="索引"/>
+                        <Rectangle Grid.Column="1"
+                                   Fill="#3178c6"/>
+                        <Label Grid.Column="2"
+                               Foreground="#FEFEFE"
+                               Style="{StaticResource MediumBoldText}"
+                               Content="单位名称"/>
+                        <Rectangle Grid.Column="3"
+                                   Fill="#3178c6"/>
+                        <Grid Grid.Row="1"/>
+                    </Grid>
+                    <StackPanel Grid.Row="1">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                      MaxHeight="500">
+                            <StackPanel>
+                                <ItemsControl ItemsSource="{Binding CompanyInfos}"
+                                              FontSize="40">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="1"/>
+                                                    <ColumnDefinition Width="8*"/>
+                                                    <ColumnDefinition Width="1"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Label Grid.Column="0"
+                                                       Style="{StaticResource MediumText}"
+                                                       Height="40"
+                                                       Content="{Binding CompanyIndex}"/>
+                                                <TextBox Grid.Column="2" 
+                                                         Height="40"
+                                                         Width="400"
+                                                         Name="CompanyTextBox"
+                                                         Style="{StaticResource BetterTextBox}"
+                                                         IsEnabled="{Binding CanInput}"
+                                                         Text="{Binding CompanyName}"/>
+                                                <Button Grid.Column="4"
+                                                        Height="40"
+                                                        Width="40"
+                                                        Background="#b5ab45"
+                                                        Style="{StaticResource DataButton}"
+                                                        IsEnabled="{Binding CanEdit}"
+                                                        Command="{Binding Edit}"
+                                                        CommandParameter="{Binding ElementName=CompanyTextBox, Path=Text}">
+                                                    <Image Source="{Binding EditImage}"
+                                                           Style="{StaticResource TopIcon}"/>
+                                                </Button>
+                                                <Button Grid.Column="6"
+                                                        Height="40"
+                                                        Width="40"
+                                                        Background="#DA5959"
+                                                        Style="{StaticResource DataButton}"
+                                                        IsEnabled="{Binding CanDelete}"
+                                                        Command="{Binding Delete}"
+                                                        CommandParameter="{Binding ElementName=CompanyTextBox, Path=Text}">
+                                                    <Image Source="/Resources/Pictures/Close2.png"
+                                                           Style="{StaticResource TopIcon}"/>
+                                                </Button>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </StackPanel>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="1"
+                             Height="50"
+                             Width="400"
+                             IsEnabled="{Binding CanInput}"
+                             Text="{Binding InputText}"
+                             Name="NewCompanyTextBox"
+                             Style="{StaticResource BetterTextBox}">
+                        </TextBox>
+                        <Button Grid.Column="2"
+                            Height="40"
+                            Width="40"
+                                VerticalAlignment="Center"
+                            Background="#3da345"
+                            IsEnabled="{Binding CanAdd}"
+                            Style="{StaticResource DataButton}"
+                            Command="{Binding Add}">
+                            <Image Source="/Resources/Pictures/Add.png"
+                               Style="{StaticResource TopIcon}"/>
+                        </Button>
+                        <Button Grid.Column="3"
+                            Height="40"
+                            Width="40"
+                            VerticalAlignment="Center"
+                            Background="#3178c6"
+                            IsEnabled="{Binding CanConfirm}"
+                            Style="{StaticResource DataButton}"
+                            Command="{Binding Confirm}"
+                            CommandParameter="{Binding ElementName=NewCompanyTextBox, Path=Text}" Cursor="Hand">
+                            <Image Source="/Resources/Pictures/Confirm.png"
+                               Style="{StaticResource TopIcon}"/>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Grid>
         </Grid>
     </Grid>
 

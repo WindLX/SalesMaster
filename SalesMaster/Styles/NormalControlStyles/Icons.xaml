@@ -23,4 +23,11 @@
         <Setter Property="VerticalAlignment" Value="Top"/>
     </Style>
 
+    <Style x:Key="StateIcon" TargetType="Image">
+        <Setter Property="Width" Value="20"/>
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
 </ResourceDictionary>

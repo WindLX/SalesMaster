@@ -13,16 +13,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
+using SalesMaster.ViewModel;
 
 namespace SalesMaster.View
 {
     /// <summary>
-    /// New.xaml 的交互逻辑
+    /// EditMain.xaml 的交互逻辑
     /// </summary>
-    public partial class New : UserControl
+    public partial class EditMain : UserControl
     {
-        public New()
+        public EditMain(object parameter)
         {
+            DataContext = new EditMainViewModel(parameter);
             InitializeComponent();
         }
 

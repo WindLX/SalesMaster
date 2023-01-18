@@ -6,6 +6,7 @@ namespace SalesMaster.ViewModel
     {
         public HomeViewModel()
         {
+
         }
     }
 }

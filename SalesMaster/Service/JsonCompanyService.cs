@@ -12,13 +12,19 @@ namespace SalesMaster.Service
             string fileName = @"..\..\Data\Companies.json";
             var options = new JsonSerializerOptions { WriteIndented = true };
             string jsonString = JsonSerializer.Serialize(companies, options);
+
             File.WriteAllText(fileName, jsonString);
         }
 
         public void AddCompany(string newCompany)
         {
             Companies companies = GetCompanies();
-            companies.CompanyName.Add(newCompany);
+
+            if (newCompany == null)
+                companies.CompanyName.Add("");
+            else
+                companies.CompanyName.Add(newCompany);
+
             SaveCompanies(companies);
         }
 
@@ -40,7 +46,9 @@ namespace SalesMaster.Service
         {
             string fileName = @"..\..\Data\Companies.json";
             string jsonString = File.ReadAllText(fileName);
+
             Companies companies = JsonSerializer.Deserialize<Companies>(jsonString);
+
             return companies;
         }
     }

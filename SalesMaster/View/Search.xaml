@@ -18,9 +18,8 @@
                 搜索
             </Label.Content>
         </Label>
-        <Grid>
-
-        </Grid>
+        <ContentControl Grid.Column="1"
+                            Content="{Binding CurrentView}"/>
     </Grid>
 
 </UserControl>

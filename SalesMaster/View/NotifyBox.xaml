@@ -1,0 +1,60 @@
+﻿<Window x:Class="SalesMaster.View.NotifyBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SalesMaster.View"
+        mc:Ignorable="d"
+        Name="NotifyWindow"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Title="NotifyBox" Height="100" Width="300"
+        Loaded="NotifyWindow_Loaded">
+
+    <Window.Resources>
+        <Storyboard x:Key="OpenStoryBoard" Completed="Storyboard_Completed">
+            <DoubleAnimation From="0" 
+                             To="{Binding ElementName=NotifyWindow, Path=Width}"
+                             Duration="00:00:00.5"
+                             Storyboard.TargetName="RootBorder"
+                             Storyboard.TargetProperty="Width">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+
+        <Storyboard x:Key="CloseStoryBoard" Completed="Storyboard_Completed_1">
+            <DoubleAnimation To="0" 
+                             From="{Binding ElementName=NotifyWindow, Path=Width}"
+                             Duration="00:00:00.5"
+                             Storyboard.TargetName="RootBorder"
+                             Storyboard.TargetProperty="Width">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+    </Window.Resources>
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard>
+                <StaticResource ResourceKey="OpenStoryBoard"/>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+    
+    <Border Background="#5e89d5"
+            HorizontalAlignment="Right"
+            Name="RootBorder">
+        <TextBlock VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   FontFamily="{StaticResource CJL}"
+                   FontSize="24"
+                   Foreground="#FFFFFF"
+                   Name="MessageBox"/>
+    </Border>
+</Window>

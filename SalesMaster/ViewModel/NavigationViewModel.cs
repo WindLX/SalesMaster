@@ -3,16 +3,29 @@ using SalesMaster.Utils;
 
 namespace SalesMaster.ViewModel
 {
-    public class NavigationViewModel : SingletonViewModelBase<NavigationViewModel>
+    public class NavigationViewModel : ViewModelBase
     {
-        public event Action<PageName> OnCurrentViewChanged;
+        public event Action<object, string> OnCurrentViewChanged;
+
         private object currentView;
+        private bool canChangePage;
+
         public object CurrentView
-        { 
+        {
             get => currentView;
             set
             {
                 currentView = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool CanChangePage
+        {
+            get => canChangePage;
+            set
+            {
+                canChangePage = value;
                 OnPropertyChanged();
             }
         }
@@ -26,40 +39,45 @@ namespace SalesMaster.ViewModel
         private void CreateHomePage(object parameter)
         {
             CurrentView = new HomeViewModel();
-            OnCurrentViewChanged?.Invoke(PageName.Home);
+            OnCurrentViewChanged?.Invoke(PageName.Home, "CurrentViewChanged");
         }
 
         private void CreateNewPage(object parameter)
         {
             CurrentView = new NewViewModel();
-            OnCurrentViewChanged?.Invoke(PageName.New);
+            OnCurrentViewChanged?.Invoke(PageName.New, "CurrentViewChanged");
         }
 
         private void CreateSearchPage(object parameter)
         {
             CurrentView = new SearchViewModel();
-            OnCurrentViewChanged?.Invoke(PageName.Search);
+            OnCurrentViewChanged?.Invoke(PageName.Search, "CurrentViewChanged");
         }
 
         private void CreateCompanyPage(object parameter)
         {
             CurrentView = new CompanyViewModel();
-            OnCurrentViewChanged?.Invoke(PageName.Company);
+            OnCurrentViewChanged?.Invoke(PageName.Company, "CurrentViewChanged");
         }
 
         private void CreateSettingsPage(object parameter)
         {
             CurrentView = new SettingsViewModel();
-            OnCurrentViewChanged?.Invoke(PageName.Settings);
+            OnCurrentViewChanged?.Invoke(PageName.Settings, "CurrentViewChanged");
         }
 
         public NavigationViewModel()
         {
-            OpenHomePage = new RelayCommand(new Action<object>(CreateHomePage));
-            OpenNewPage = new RelayCommand(new Action<object>(CreateNewPage));
-            OpenSearchPage = new RelayCommand(new Action<object>(CreateSearchPage));
-            OpenCompanyPage = new RelayCommand(new Action<object>(CreateCompanyPage));
-            OpenSettingsPage = new RelayCommand(new Action<object>(CreateSettingsPage));
+            CanChangePage = true;
+
+            OnCurrentViewChanged += Broadcaster.Instace.Publish;
+            Broadcaster.Instace.Subscribe(new Action<object>((parameter) => CanChangePage = (bool)parameter), "CanPageChange");
+
+            OpenHomePage = new RelayCommand(new Action<object>(CreateHomePage), new Predicate<object>((parameter) => CanChangePage));
+            OpenNewPage = new RelayCommand(new Action<object>(CreateNewPage), new Predicate<object>((parameter) => CanChangePage));
+            OpenSearchPage = new RelayCommand(new Action<object>(CreateSearchPage), new Predicate<object>((parameter) => CanChangePage));
+            OpenCompanyPage = new RelayCommand(new Action<object>(CreateCompanyPage), new Predicate<object>((parameter) => CanChangePage));
+            OpenSettingsPage = new RelayCommand(new Action<object>(CreateSettingsPage), new Predicate<object>((parameter) => CanChangePage));
 
             CurrentView = new HomeViewModel();
         }

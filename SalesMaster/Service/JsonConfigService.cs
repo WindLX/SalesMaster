@@ -4,12 +4,13 @@ using System.IO;
 
 namespace SalesMaster.Service
 {
-    internal class JsonConfigService : IConfigService
+    public class JsonConfigService : IConfigService
     {
         public Config GetConfig()
         {
             string fileName = @"..\..\Data\Config.json";
             string jsonString = File.ReadAllText(fileName);
+
             return JsonSerializer.Deserialize<Config>(jsonString);
         }
 
@@ -21,6 +22,7 @@ namespace SalesMaster.Service
                 IsAutoUseNowDate = true,
                 ExportLocation = "..\\..\\SalesLists"
             };
+
             SetConfig(defaultConfig);
         }
 
@@ -29,6 +31,7 @@ namespace SalesMaster.Service
             string fileName = @"..\..\Data\Config.json";
             var options = new JsonSerializerOptions { WriteIndented = true };
             string jsonString = JsonSerializer.Serialize(config, options);
+
             File.WriteAllText(fileName, jsonString);
         }
     }
